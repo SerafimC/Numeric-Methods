@@ -1,13 +1,13 @@
 // Its necessary look up fot the G(x) = x equivalence and choose an initial X0
 var Euler = 2.718
 var oInterval = {
-    a: 9,
-    b: 10,
-    E: Math.pow(10, -10)
+    a: 0,
+    b: 2,
+    E: Math.pow(10, -1)
 }
 // G(x) relative to function f(x) = x*x -x -1
 function G(x){
-    return (300 + 201.0625*(1-Math.pow(Euler, (0.1*x/0.25))))/20.10625
+    return Math.pow((x+3)/(Math.pow(x, 2)+2), (1/2))
 }
 
 // Module of X
@@ -19,16 +19,29 @@ function AlwaysPositive(x){
     }
 }
 
+// Verify if result exists on interval.
+// If it doesnt, returns the higher or bottom limit
+function overInterval(x){
+    var result = G(x)
+    if(result < oInterval.a)
+        return oInterval.a
+    else if(result > oInterval.b)
+        return oInterval.b
+    else    
+        return result
+}
+
 function fix_point(){
     var n = 0
-    var x0 = 9, x1
+    var x0 = 0, x1
     
-    x1 = G(x0)
+    x1 = overInterval(x0)
 
-    while(AlwaysPositive(G(x1)-G(x0)) > oInterval.E && (x1 >= oInterval.a && x1 <= oInterval.b)){
+    while(AlwaysPositive(G(x1)-G(x0)) > oInterval.E){
         x0 = x1
-        x1 = G(x1)
+        x1 = overInterval(x1)
         n++ 
+        console.log("Root: " + x1 + " N: " + n +  " Error: " + AlwaysPositive(G(x1)-G(x0)) )
     }
     console.log("Root: " + x1 + " N: " + n +  " Error: " + AlwaysPositive(G(x1)-G(x0)) )
     // console.log(AlwaysPositive(G(x1)-G(x0)))
