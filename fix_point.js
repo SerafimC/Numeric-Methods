@@ -3,7 +3,7 @@ var Euler = 2.718
 var oInterval = {
     a: 0,
     b: 2,
-    E: Math.pow(10, -1)
+    E: Math.pow(10, -4)
 }
 // G(x) relative to function f(x) = x*x -x -1
 function G(x){
