@@ -1,13 +1,24 @@
 // Its necessary to find the derivative function Fdx
-
-var pi = Math.atan(1)
 var oInterval = {
-    a: 1.5,
-    b: 3,
+    a: 0,
+    b: 2,
     E: Math.pow(10, -10)
 }
 
-function alwaysPositive(x){
+// Verify if result exists on interval.
+// If it doesnt, returns the higher or bottom limit
+function overInterval(x){
+    var result = (x - (F(x)/ Fdx(x)))
+    console.log(result)
+    if(result < oInterval.a)
+        return oInterval.a
+    else if(result > oInterval.b)
+        return oInterval.b
+    else    
+        return result
+}
+
+function AlwaysPositive(x){
     if(x < 0)
         return x*(-1)
     else
@@ -15,26 +26,29 @@ function alwaysPositive(x){
 }
 
 function F(x){
-    return 1/2 + (1/4)*Math.pow(x,2)-(1/2)*Math.cos(2*x)
+    return Math.pow(x,4) + 2*Math.pow(x, 2) -x -3
 }
 
 // Derivative of F(X)
 function Fdx(x){
-    return (1/2)*x - Math.sin(x)-x*Math.cos(x) +Math.sin(2*x)
+    return 4*Math.pow(x,3) + 4*x -1
 }
 
 function newton_method(){
     var n = 0
-    var x0 = pi/2
-    var x1 = x0 - (F(x0)/ Fdx(x0))
-    console.log('X0: ' + x0)
-    console.log('X1: ' + x1)
-    while(alwaysPositive(x1-x0) > oInterval.E && (x1 >= oInterval.a && x1 <= oInterval.b)){
+    var x0 = 0.5, x1
+   
+    x1 = overInterval(x0)
+
+    console.log (x0 + ' - ' + x1)
+    while(AlwaysPositive(x1-x0) > oInterval.E){
         x0 = x1
-        x1 = x0 - (F(x0)/ Fdx(x0))
+        x1 = overInterval(x0)
         n++
+        
+        console.log("Root: " + x1 + " N: " + n +  " Error: " + AlwaysPositive(x1-x0)) 
     }
-    console.log("Root: " + x1 + " found on " + n + " interactions")
+    console.log("Root: " + x1 + " N: " + n +  " Error: " + AlwaysPositive(x1-x0)) 
 }
 
 newton_method()
