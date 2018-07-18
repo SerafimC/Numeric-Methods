@@ -1,11 +1,11 @@
 // P(x) = y0 + sum(Di*y0(x-xi))
 let aX = [ 1, 3, 4, 5]
-let aY = [0, 6, 24, 60]
+//let aY = [0, 6, 24, 60]
 let aDelta = Array(0)
 
-// aY = aX.map(function F(x) {
-//     return Math.sqrt(1+x)
-// });
+ aY = aX.map(function F(x) {
+     return Math.sqrt(1+x)
+ });
 
 // console.log(aX)
 // console.log(aY)
