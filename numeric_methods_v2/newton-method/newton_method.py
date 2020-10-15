@@ -5,22 +5,17 @@ class Newton_method:
 
     def __init__(self, x):
         self.xs = Symbol('s')
-        self.func = cos(self.xs) - self.xs**2
-        self.f_prime = self.func.diff(self.xs)
+        self.function = cos(self.xs) - self.xs**2
+        self.derivative = self.function.diff(self.xs)
+
+        self.function = lambdify(self.xs, self.function)
+        self.derivative = lambdify(self.xs, self.derivative)
         
         self.x = float(x)
         self.error = 99
 
-    def function(self):
-        func = lambdify(self.xs, self.func)
-        return func(self.x)
-
-    def derivative(self):
-        func = lambdify(self.xs, self.f_prime)
-        return func(self.x)
-
     def iterate(self):
-        xn = self.x - (self.function() / self.derivative())
+        xn = self.x - (self.function(self.x) / self.derivative(self.x))
         self.error = abs(self.x - xn)
         self.x = xn
         return xn
