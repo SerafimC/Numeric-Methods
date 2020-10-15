@@ -12,7 +12,7 @@ class Newton_method:
     def derivative(self):
         return -math.sin(self.x) - 2*self.x
 
-    def interate(self):
+    def iterate(self):
         xn = self.x - (self.function() / self.derivative())
         self.error = abs(self.x - xn)
         self.x = xn
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     
     while(newton.error >= tol):
         print('Iteracao ' + str(it+1))
-        root_found = newton.interate()
+        root_found = newton.iterate()
         print(root_found)
         it += 1
     
