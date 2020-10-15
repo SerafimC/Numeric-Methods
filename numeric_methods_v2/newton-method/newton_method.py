@@ -1,16 +1,23 @@
 import math
+from sympy import *
 
 class Newton_method:
 
     def __init__(self, x):
+        self.xs = Symbol('s')
+        self.func = cos(self.xs) - self.xs**2
+        self.f_prime = self.func.diff(self.xs)
+        
         self.x = float(x)
         self.error = 99
 
     def function(self):
-        return math.cos(self.x) - math.pow(self.x, 2)
+        func = lambdify(self.xs, self.func)
+        return func(self.x)
 
     def derivative(self):
-        return -math.sin(self.x) - 2*self.x
+        func = lambdify(self.xs, self.f_prime)
+        return func(self.x)
 
     def iterate(self):
         xn = self.x - (self.function() / self.derivative())
